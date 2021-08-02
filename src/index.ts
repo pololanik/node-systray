@@ -64,10 +64,12 @@ export type Conf = {
 
 const getTrayBinPath = (debug: boolean = false, copyDir: boolean | string = false) => {
   const binName = ({
-    win32: `tray_windows${debug ? '' : '_release'}.exe`,
-    darwin: `tray_darwin${debug ? '' : '_release'}`,
-    linux: `tray_linux${debug ? '' : '_release'}`,
-  })[process.platform]
+    win32_x64: `tray_windows${debug ? '' : '_release'}.exe`,
+    darwin_x64: `tray_darwin${debug ? '' : '_release'}`,
+    linux_x64: `tray_linux${debug ? '' : '_release'}`,
+    linux_arm64: `tray_linux${debug ? '' : '_release'}`,
+  })[process.platform+'_'+process.arch]
+
   const binPath = path.resolve(`${__dirname}/../traybin/${binName}`)
   if (copyDir) {
     copyDir = path.join((
